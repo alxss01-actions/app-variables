@@ -5,8 +5,8 @@ outputs:
     value: ${{ steps.variables.outputs.artifactId }}
   groupId:
     value: ${{ steps.variables.outputs.groupId }}
-  app-version:
-    value: ${{ steps.variables.outputs.app-version }}
+  appVersion:
+    value: ${{ steps.variables.outputs.appVersion }}
 
 runs:
   using: "composite"
@@ -15,10 +15,10 @@ runs:
       id: variables
       run: |
         mvn=$(which mvn)
-        app-version=$($mvn -f pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
+        appVersion=$($mvn -f pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
         artifactId=$($mvn -f pom.xml help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         groupId=$($mvn -f pom.xml help:evaluate -Dexpression=project.groupId -q -DforceStdout)
-        echo "app-version=$app-version" >> $GITHUB_OUTPUT
+        echo "appVersion=$appVersion" >> $GITHUB_OUTPUT
         echo "artifactId=$artifactId" >> $GITHUB_OUTPUT
         echo "groupId=$groupId" >> $GITHUB_OUTPUT
       shell: bash
