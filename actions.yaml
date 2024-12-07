@@ -1,0 +1,23 @@
+name: App variables
+
+outputs:
+  artifactId:
+    values: ${{ steps.variables.output.artifactId }}
+  groupId:
+    values: ${{ steps.variables.output.groupId }}
+  app-version:
+    values: ${{ steps.variables.output.app-version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Recupera Variaveis
+      id: variables
+      run: |
+        mvn=$(which mvn)
+        app-version=$($mvn -f pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
+        artifactId=$($mvn -f pom.xml help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+        groupId=$($mvn -f pom.xml help:evaluate -Dexpression=project.groupId -q -DforceStdout)
+        echo "app-version=$app-version" >> $GITHUB_OUTPUT
+        echo "artifactId=$artifactId" >> $GITHUB_OUTPUT
+        echo "groupId=$groupId" >> $GITHUB_OUTPUT
