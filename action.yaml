@@ -2,11 +2,11 @@ name: App variables
 
 outputs:
   artifactId:
-    values: ${{ steps.variables.output.artifactId }}
+    value: ${{ steps.variables.outputs.artifactId }}
   groupId:
-    values: ${{ steps.variables.output.groupId }}
+    value: ${{ steps.variables.outputs.groupId }}
   app-version:
-    values: ${{ steps.variables.output.app-version }}
+    value: ${{ steps.variables.outputs.app-version }}
 
 runs:
   using: "composite"
